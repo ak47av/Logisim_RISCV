@@ -23,7 +23,11 @@ if __name__ == '__main__':
     df = pd.read_csv('tt.csv')
 
     for row in df.itertuples():
-        words[(int(row.ihex,16))] = int(row.ohex, 16)
+
+        # print(type(row.ibin))
+        x = str(row.ibin)
+        y = str(row.obin)
+        words[(int(x,2))] = int(y, 2)
     
     f = open("logic.rom", "w")
     f.write("v3.0 hex words addressed\n")
@@ -34,7 +38,7 @@ if __name__ == '__main__':
         line = ""
         line += f"{row_value:0>3x}: "
         for y in range(16):
-            line += f"{words[(x*16) + y]:0>3x} "
+            line += f"{words[(x*16) + y]:0>4x} "
             row_value = row_value+1
         line = line[:-1]
         line += "\n"
